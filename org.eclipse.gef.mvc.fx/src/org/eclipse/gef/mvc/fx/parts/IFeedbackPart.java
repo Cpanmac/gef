@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.gef.mvc.fx.parts;
 
+import org.eclipse.gef.common.adapt.IAdaptable;
+
 import javafx.scene.Node;
 
 /**
@@ -26,6 +28,7 @@ import javafx.scene.Node;
  * @param <V>
  *            The visual node used by this {@link IFeedbackPart}.
  */
-public interface IFeedbackPart<V extends Node> extends IVisualPart<V> {
+public interface IFeedbackPart<V extends Node>
+		extends IVisualPart<V>, IAdaptable.Bound<IVisualPart<? extends Node>> {
 
 }

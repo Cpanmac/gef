@@ -30,6 +30,7 @@ import com.google.common.collect.SetMultimap;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyListProperty;
 import javafx.beans.property.ReadOnlyListWrapper;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -44,8 +45,7 @@ import javafx.scene.Node;
  * @author anyssen
  *
  * @param <V>
- *            The visual {@link Node} used by this {@link AbstractContentPart}
- *            .
+ *            The visual {@link Node} used by this {@link AbstractContentPart} .
  */
 public abstract class AbstractContentPart<V extends Node>
 		extends AbstractVisualPart<V> implements IContentPart<V> {
@@ -77,6 +77,11 @@ public abstract class AbstractContentPart<V extends Node>
 				onContentChanged(oldValue, newValue);
 			}
 		});
+	}
+
+	@Override
+	public ReadOnlyObjectProperty<IVisualPart<? extends Node>> adaptableProperty() {
+		return parentProperty();
 	}
 
 	/**
@@ -326,6 +331,11 @@ public abstract class AbstractContentPart<V extends Node>
 						+ this.getClass());
 	}
 
+	@Override
+	public IVisualPart<? extends Node> getAdaptable() {
+		return getParent();
+	}
+
 	/**
 	 * @see IContentPart#getContent()
 	 */
@@ -487,6 +497,11 @@ public abstract class AbstractContentPart<V extends Node>
 							+ contentChild + " to index " + newIndex + ".");
 		}
 		contentChildren.setAll(newContentChildren);
+	}
+
+	@Override
+	public void setAdaptable(IVisualPart<? extends Node> adaptable) {
+		setParent(adaptable);
 	}
 
 	/**

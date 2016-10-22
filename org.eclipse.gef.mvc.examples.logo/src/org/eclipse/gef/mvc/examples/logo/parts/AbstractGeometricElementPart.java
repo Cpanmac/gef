@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.gef.mvc.examples.logo.parts;
 
+import java.util.HashMap;
+
 import org.eclipse.gef.mvc.examples.logo.model.AbstractGeometricElement;
 import org.eclipse.gef.mvc.fx.parts.AbstractContentPart;
 
@@ -18,14 +20,12 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
 
-public abstract class AbstractGeometricElementPart<N extends Node>
-		extends AbstractContentPart<N> {
+public abstract class AbstractGeometricElementPart<N extends Node> extends AbstractContentPart<N> {
 
 	private final ChangeListener<Object> contentObserver = new ChangeListener<Object>() {
 
 		@Override
-		public void changed(ObservableValue<? extends Object> observable,
-				Object oldValue, Object newValue) {
+		public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
 			refreshVisual();
 		}
 	};
@@ -34,6 +34,9 @@ public abstract class AbstractGeometricElementPart<N extends Node>
 	protected void doActivate() {
 		super.doActivate();
 		contentProperty().addListener(contentObserver);
+
+		System.out.println(getRoot().getViewer().getAdaptable().getAdapterKey(getRoot().getViewer()).getRole() + " - "
+				+ System.identityHashCode(getAdapter(HashMap.class)));
 	}
 
 	@Override

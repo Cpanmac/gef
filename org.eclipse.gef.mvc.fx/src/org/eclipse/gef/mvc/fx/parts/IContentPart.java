@@ -16,6 +16,7 @@ package org.eclipse.gef.mvc.fx.parts;
 import java.beans.PropertyChangeEvent;
 import java.util.List;
 
+import org.eclipse.gef.common.adapt.IAdaptable;
 import org.eclipse.gef.common.beans.property.ReadOnlySetMultimapProperty;
 import org.eclipse.gef.common.collections.ObservableSetMultimap;
 import org.eclipse.gef.mvc.fx.models.FocusModel;
@@ -39,7 +40,8 @@ import javafx.scene.control.SelectionModel;
  *
  */
 // TODO: parameterize with content type
-public interface IContentPart<V extends Node> extends IVisualPart<V> {
+public interface IContentPart<V extends Node>
+		extends IVisualPart<V>, IAdaptable.Bound<IVisualPart<? extends Node>> {
 
 	/**
 	 * Name of the {@link #contentProperty() content property}.

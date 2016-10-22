@@ -11,6 +11,8 @@
  *******************************************************************************/
 package org.eclipse.gef.mvc.examples.logo;
 
+import java.util.HashMap;
+
 import org.eclipse.gef.common.adapt.AdapterKey;
 import org.eclipse.gef.common.adapt.inject.AdaptableScopes;
 import org.eclipse.gef.common.adapt.inject.AdapterInjectionSupport;
@@ -183,6 +185,9 @@ public class MvcLogoExampleModule extends MvcFxModule {
 
 		// clone on shift+click
 		adapterMapBinder.addBinding(AdapterKey.defaultRole()).to(FXCloneOnClickPolicy.class);
+
+		adapterMapBinder.addBinding(AdapterKey.defaultRole()).to(HashMap.class)
+				.in(AdaptableScopes.typed(IDomain.class)); // vs. IViewer.class
 	}
 
 	/**
@@ -257,6 +262,9 @@ public class MvcLogoExampleModule extends MvcFxModule {
 
 		// normalize connected on drag
 		adapterMapBinder.addBinding(AdapterKey.defaultRole()).to(NormalizeConnectedOnDragPolicy.class);
+
+		adapterMapBinder.addBinding(AdapterKey.defaultRole()).to(HashMap.class)
+				.in(AdaptableScopes.typed(IDomain.class));
 	}
 
 	/**

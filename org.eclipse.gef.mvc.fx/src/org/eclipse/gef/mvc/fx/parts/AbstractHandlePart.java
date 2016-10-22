@@ -18,6 +18,7 @@ import org.eclipse.gef.fx.listeners.VisualChangeListener;
 import org.eclipse.gef.fx.nodes.Connection;
 import org.eclipse.gef.geometry.planar.Point;
 
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -47,6 +48,11 @@ abstract public class AbstractHandlePart<V extends Node>
 			refreshVisual();
 		}
 	};
+
+	@Override
+	public ReadOnlyObjectProperty<IVisualPart<? extends Node>> adaptableProperty() {
+		return parentProperty();
+	}
 
 	@Override
 	protected void doAddChildVisual(IVisualPart<? extends Node> child,
@@ -122,5 +128,15 @@ abstract public class AbstractHandlePart<V extends Node>
 			int index) {
 		throw new UnsupportedOperationException(
 				"IHandleParts do not support this");
+	}
+
+	@Override
+	public IVisualPart<? extends Node> getAdaptable() {
+		return getParent();
+	}
+
+	@Override
+	public void setAdaptable(IVisualPart<? extends Node> adaptable) {
+		setParent(adaptable);
 	}
 }
